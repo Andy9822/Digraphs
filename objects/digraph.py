@@ -1,30 +1,29 @@
-class Digraph:
-    def __init__():
+class Digraph(object):
+    nodes = {}
+
+    def __init__(self):
         self.nodes = {}
 
-    def __str__():
-        return "Digraph"
-
-    def newNode(value):
-        if value not in self.nodes.keys:
+    def newNode(self, value):
+        if value not in self.nodes.keys():
             self.nodes[value] = []
 
-    def newNode(value, edges):
-        if value in self.nodes.keys:
+    def newCompleteNode(self, value, edges):
+        if value in self.nodes.keys():
             raise AttributeError
         else:
             self.nodes[value] = edges
 
-    def newEdge(origin, to):
-        if origin not in self.nodes.keys:
+    def newEdge(self, origin, to):
+        if origin not in self.nodes.keys():
             raise AttributeError
         else:
             self.nodes[origin].append(to)
 
-    def containsNode(value):
-        return value in self.nodes.keys
+    def containsNode(self, value):
+        return value in self.nodes.keys()
 
-    def connectedBFS(origin, to):
+    def connectedBFS(self, origin, to):
         nodeQueue = []
         checked = []
         nodeQueue.insert(0, origin)
