@@ -1,3 +1,8 @@
+import re
+import tkinter.filedialog as filedialog
+from tkinter import *
+
+
 class Fila:
     def __init__(self):
         self.Fila = []
@@ -8,12 +13,6 @@ class Fila:
     def FilaVazia():
         return len(self.Fila) == 0
 
-
-class Grafo:
-    def __init__(self,listAdjacentes ,Info):
-        self.listAdjacentes = listAdjacentes
-        self.Info = Info
-
     """def ComparaComponente2Nodos(NodoRaiz, NodoComparado):
         FilaDeComparacao = Fila()
         ListaDeComparados = []
@@ -21,7 +20,7 @@ class Grafo:
 
 
 
-def main():
+def funcaoBombardelliNaoLembroQQFazENaoSeiNomear():
     print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
     #Lemos n do documento de teste, e fazemos
@@ -44,11 +43,35 @@ def main():
 
 
 
-    pass
 
-if __name__ == '__main__':
-    main()
 
 
 
 #-------------------------------------------------------------------------------
+class Nodo(object):
+     def __init__(self, valor, listaAdjacentes):
+             self.valor = valor
+             self.listaAdjacentes = listaAdjacentes
+
+def readFile():
+    window=Tk()
+    fileName =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("Txt files","*.txt"),("all files","*.*")))
+    window.destroy()
+    File = open(fileName,'r')
+    lista = []
+    File.readline()
+    vertices = int (File.readline())
+    for x in range(vertices):
+        linha = File.readline()
+        SONUMEROS = re.findall(r'\d+', linha)
+        node = SONUMEROS[0]
+        SONUMEROS.pop(0)
+        lista.append(Nodo(node,SONUMEROS))
+
+        print(node,end=' ')
+        print("conecta com", end=' ')
+        print(SONUMEROS)
+        print('\n')
+    File.close()
+
+readFile()
