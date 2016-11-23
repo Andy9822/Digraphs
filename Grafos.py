@@ -53,6 +53,15 @@ class Nodo(object):
              self.valor = valor
              self.listaAdjacentes = listaAdjacentes
 
+
+def printConecions(listaGrafo):
+    for x in listaGrafo:
+        print(x.valor,end=' ')
+        print("conecta com", end=' ')
+        print(x.listaAdjacentes)
+        print('\n')
+
+
 def readFile():
     window=Tk()
     fileName =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("Txt files","*.txt"),("all files","*.*")))
@@ -68,13 +77,10 @@ def readFile():
         SONUMEROS.pop(0)
         lista.append(Nodo(node,SONUMEROS))
 
-        print(node,end=' ')
-        print("conecta com", end=' ')
-        print(SONUMEROS)
-        print('\n')
     File.close()
     return lista
 
 
 
 listaGrafo = readFile()
+printConecions(listaGrafo)
