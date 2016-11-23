@@ -39,3 +39,19 @@ class Digraph(object):
                     for i in self.nodes[temp]:
                         nodeQueue.insert(0, i)
         return False
+
+    def getAllEdges(self):
+        connections = []
+        for node, edges in self.nodes.items():
+            for dest in edges:
+                if [node, dest] not in connections:
+                    connections.append([node, dest])
+        return connections
+
+    """def getComponent(self, startNode):
+        if not self.containsNode(startNode):
+            return None
+
+
+
+    return 0"""
