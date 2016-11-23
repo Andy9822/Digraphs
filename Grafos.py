@@ -52,15 +52,44 @@ class Nodo(object):
      def __init__(self, valor, listaAdjacentes):
              self.valor = valor
              self.listaAdjacentes = listaAdjacentes
+def oneComponente(listaGrafo):
+    boolean = True
+    for i in listaGrafo:
+        for j in listaGrafo:
+            boolean = boolean and connectedBFS(i.valor,j.valor,listaGrafo)
+    return boolean
 
+def achaNodo(valor,listaGrafo):
+    for x in listaGrafo:
+        if x.valor == valor:
+            startingNode = x
+            return startingNode
+    return 'error'
+
+def connectedBFS(origin, destiny,listaGrafo):
+    nodeQueue = []
+    checked = []
+    nodeQueue.insert(0, origin)
+
+    while nodeQueue != []:
+        tempValor = nodeQueue.pop()
+        nodoAtual = achaNodo(tempValor,listaGrafo)
+
+        if nodoAtual != 'error' and nodoAtual.valor not in checked:
+            checked.append(nodoAtual.valor)
+            if destiny in nodoAtual.listaAdjacentes:
+                return True
+            else:
+                for i in nodoAtual.listaAdjacentes:
+                    nodeQueue.insert(0, i)
+    return False
 
 def printConecions(listaGrafo):
     for x in listaGrafo:
         print(x.valor,end=' ')
         print("conecta com", end=' ')
         print(x.listaAdjacentes)
-        print('\n')
-
+    print("")
 
 def readFile():
     window=Tk()
@@ -73,6 +102,7 @@ def readFile():
     for x in range(vertices):
         linha = File.readline()
         SONUMEROS = re.findall(r'\d+', linha)
+        SONUMEROS = [int(x) for x in SONUMEROS]
         node = SONUMEROS[0]
         SONUMEROS.pop(0)
         lista.append(Nodo(node,SONUMEROS))
@@ -84,3 +114,7 @@ def readFile():
 
 listaGrafo = readFile()
 printConecions(listaGrafo)
+if oneComponente(listaGrafo):
+    print("O grafo so possui 1 componente")
+else:
+    print("O grafico possui mais de 1 componente")
