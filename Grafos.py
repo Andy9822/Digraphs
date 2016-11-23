@@ -73,5 +73,8 @@ def readFile():
         print(SONUMEROS)
         print('\n')
     File.close()
+    return lista
 
-readFile()
+
+
+listaGrafo = readFile()
