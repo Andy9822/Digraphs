@@ -2,22 +2,23 @@ from digraph import *
 
 
 nodeTeste = Digraph()
-nodeTeste.newNode(0)
-nodeTeste.newNode(1)
-nodeTeste.newNode(2)
-nodeTeste.newNode(3)
-nodeTeste.newNode(4)
-nodeTeste.newNode(5)
 
-nodeTeste.newEdge(0, 1)
-nodeTeste.newEdge(1, 4)
-nodeTeste.newEdge(4, 3)
-nodeTeste.newEdge(4, 5)
-nodeTeste.newEdge(3, 1)
-nodeTeste.newEdge(5, 2)
-nodeTeste.newEdge(2, 5)
+nodeTeste.addEdge('A', 'B')
+nodeTeste.addEdge('B', 'C')
+nodeTeste.addEdge('B', 'D')
+nodeTeste.addEdge('C', 'A')
+nodeTeste.addEdge('D', 'E')
+nodeTeste.addEdge('E', 'F')
+nodeTeste.addEdge('F', 'D')
+nodeTeste.addEdge('G', 'F')
+nodeTeste.addEdge('G', 'H')
+nodeTeste.addEdge('H', 'I')
+nodeTeste.addEdge('I', 'J')
+nodeTeste.addEdge('J', 'G')
+nodeTeste.addEdge('J', 'K')
 
 
-print(nodeTeste.isCiclic())
 
-print("Fim")
+print("Edges: " + str(nodeTeste.getAllEdges()))
+print("Reverse Edges: " + str(nodeTeste.reverseDigraph().getAllEdges()) + "\n\n")
+print("Components: " + str(nodeTeste.getSCComponents()))
