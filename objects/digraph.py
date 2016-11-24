@@ -1,5 +1,8 @@
+import copy
+
 class Digraph(object):
     nodes = {}
+
 
     def __init__(self):
         self.nodes = {}
@@ -20,8 +23,16 @@ class Digraph(object):
 
 
     def addEdges(self, node, edges):
-        self.addEdges(node + edges)
+        self.addNodes([node] + edges)
         self.nodes[node] = list(set(self.nodes[node] + edges))
+
+
+    def removeNode(self, node):
+        if node in self.nodes.keys():
+            self.nodes.pop(node)
+            for n in self.nodes.keys():
+                if node in self.nodes[n]:
+                    self.nodes[n].remove(node)
 
 
     def containsNode(self, node):
@@ -81,6 +92,7 @@ class Digraph(object):
                 reverse.addEdge(dest, origin)
         return reverse
 
+
     def getSCComponents(self):
         components = []
         visited = []
@@ -101,6 +113,7 @@ class Digraph(object):
 
         return components
 
+
     def DSFUtil(self, node, visited, stack):
         if node not in visited:
             visited.append(node)
@@ -109,6 +122,7 @@ class Digraph(object):
                     self.DSFUtil(child, visited, stack)
             stack.append(node)
 
+
     def DSFUtilReverse(self, node, visited, component):
         if node not in visited:
             visited.append(node)
@@ -116,3 +130,35 @@ class Digraph(object):
             for child in self.nodes[node]:
                 if child not in visited:
                     self.DSFUtilReverse(child, visited, component)
+
+
+    def copyDigraph(self):
+        return copy.deepcopy(self)
+
+
+    def topologicalSorting(self):
+        if self.isCiclic():
+            return None
+
+        cpy = self.copyDigraph()
+        temp = []
+        while cpy.nodes:
+            temp.append(cpy.popNoParentsNode())
+        return temp
+
+
+    def popNoParentsNode(self):
+        if self.isCiclic():
+            return None
+
+        for node in self.nodes.keys():
+            if not self.nodeHasParents(node):
+                self.removeNode(node)
+                return node
+
+
+    def nodeHasParents(self, node):
+        for edges in self.nodes.values():
+            if node in edges:
+                return True
+        return False
