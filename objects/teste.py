@@ -1,6 +1,5 @@
 from digraph import *
 
-
 nodeTeste = Digraph()
 
 nodeTeste.addEdge('A', 'B')
@@ -17,8 +16,4 @@ nodeTeste.addEdge('I', 'J')
 nodeTeste.addEdge('J', 'G')
 nodeTeste.addEdge('J', 'K')
 
-
-
-print("Edges: " + str(nodeTeste.getAllEdges()))
-print("Reverse Edges: " + str(nodeTeste.reverseDigraph().getAllEdges()) + "\n\n")
 print("Components: " + str(nodeTeste.getSCComponents()))
