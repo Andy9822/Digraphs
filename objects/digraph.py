@@ -48,10 +48,33 @@ class Digraph(object):
                     connections.append([node, dest])
         return connections
 
+    def isCiclic(self):
+        for node in self.nodes.keys():
+            nodeQueue = []
+            checked = []
+            nodeQueue.insert(0, node)
+
+            while nodeQueue != []:
+                temp = nodeQueue.pop()
+
+                if temp not in checked:
+                    checked.append(temp)
+                    if node in self.nodes[temp]:
+                        return True
+                    else:
+                        for i in self.nodes[temp]:
+                            nodeQueue.insert(0, i)
+        return False
+
     """def getComponent(self, startNode):
         if not self.containsNode(startNode):
-            return None
+            return []
+        else:
+            return self.getRoutes(startNoe)
+
+    def getRoutes(self, node, dest):
 
 
 
-    return 0"""
+
+    return startNode"""

@@ -18,6 +18,6 @@ nodeTeste.newEdge(5, 2)
 nodeTeste.newEdge(2, 5)
 
 
-print(nodeTeste.getAllEdges())
+print(nodeTeste.isCiclic())
 
 print("Fim")
