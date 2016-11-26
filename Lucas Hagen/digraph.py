@@ -1,4 +1,5 @@
 import copy
+import re
 
 class Digraph(object):
     nodes = {}
@@ -162,3 +163,9 @@ class Digraph(object):
             if node in edges:
                 return True
         return False
+
+    def importFromText(self, str):
+        for nodeStr in re.findall("([(][0-9 \n]+[)])", str):
+            nodeData = re.findall("[0-9a-zA-Z]+", nodeStr)
+            self.addEdges(nodeData[0], nodeData[1:])
+        return self
