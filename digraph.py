@@ -143,6 +143,7 @@ class Digraph(object):
 
     """
         getSCComponents: Função que informa os componentes de um dígrafo.
+        Esta função é baseada no Algoritmo de Kosaraju.
 
         @return: Lista de lista de nodos, ex: [[1, 2, 3], [4, 5], [6]]
     """
@@ -152,7 +153,7 @@ class Digraph(object):
         stack = []
 
         for node in self.nodes.keys():
-            self.DSFUtil(node, visited, stack)
+            self.DFSUtil(node, visited, stack)
 
         rDigraph = self.reverseDigraph()
 
@@ -161,34 +162,53 @@ class Digraph(object):
             temp = stack.pop()
             tempCmp = []
             if temp not in visited:
-                rDigraph.DSFUtilReverse(temp, visited, tempCmp)
+                rDigraph.DFSUtilReverse(temp, visited, tempCmp)
                 components.append(tempCmp)
 
         return components
 
-
-    def DSFUtil(self, node, visited, stack):
+    """
+        DFSUtil: Função auxiliar para a função getSCComponents. Inicializa a pilha.
+        @param node: Nodo (número/caractere)
+        @param visited: Lista de nodos
+        @param stack: Pilha de nodos
+    """
+    def DFSUtil(self, node, visited, stack):
         if node not in visited:
             visited.append(node)
             for child in self.nodes[node]:
                 if child not in visited:
-                    self.DSFUtil(child, visited, stack)
+                    self.DFSUtil(child, visited, stack)
             stack.append(node)
 
-
-    def DSFUtilReverse(self, node, visited, component):
+    """
+        DFSUtil: Função auxiliar para a função getSCComponents. Consome a pilha.
+        @param node: Nodo (número/caractere)
+        @param visited: Lista de nodos
+        @param component: Lista de Nodos
+    """
+    def DFSUtilReverse(self, node, visited, component):
         if node not in visited:
             visited.append(node)
             component.insert(0, node)
             for child in self.nodes[node]:
                 if child not in visited:
-                    self.DSFUtilReverse(child, visited, component)
+                    self.DFSUtilReverse(child, visited, component)
 
+    """
+        copyDigraph: Copia o grafo para um novo objeto.
 
+        @return: Cópia do Digraph
+    """
     def copyDigraph(self):
         return copy.deepcopy(self)
 
 
+    """
+        topologicalSorting: Função que retorna uma lista ordenada com a ordem topológica do digrafo.
+
+        @return: lista de nodos ou None (se o digrafo for cíclico)
+    """
     def topologicalSorting(self):
         if self.isCiclic():
             return None
@@ -199,7 +219,11 @@ class Digraph(object):
             temp.append(cpy.popNoParentsNode())
         return temp
 
+    """
+        popNoParentsNode: Busca um nodo que não possui antecedentes e remove ele.
 
+        @return: Nodo ou None (se o digrafo for cíclico)
+    """
     def popNoParentsNode(self):
         if self.isCiclic():
             return None
@@ -209,15 +233,24 @@ class Digraph(object):
                 self.removeNode(node)
                 return node
 
+    """
+        nodeHasParents: Verifica se um nodo possui antecedente
+        @param node: Nodo a ser verificado (número/caractere)
 
+        @return: Boolean
+    """
     def nodeHasParents(self, node):
         for edges in self.nodes.values():
             if node in edges:
                 return True
         return False
 
+    """
+        importFromText: Importa os arcos e nodos do digrafo a partir de uma string.
+        @param str: String no formato especificado pelo trabalho.
+    """
     def importFromText(self, str):
-        for nodeStr in re.findall("([(][0-9 \n]+[)])", str):
-            nodeData = re.findall("[0-9a-zA-Z]+", nodeStr)
-            self.addEdges(nodeData[0], nodeData[1:])
+        for nodeStr in re.findall("([(][0-9 \n]+[)])", str): # Regex: pega as combinações de origem e destinos
+            nodeData = re.findall("[0-9a-zA-Z]+", nodeStr) # Pega todos os números da combinação
+            self.addEdges(nodeData[0], nodeData[1:]) # Adiciona os arcos
         return self
