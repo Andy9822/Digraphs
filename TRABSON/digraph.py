@@ -247,7 +247,7 @@ class Digraph(object):
         return False
 
     """
-        importFromText: Importa os arcos e nodos do digrafo a partir de uma string.
+        readFile: Importa os arcos e nodos do digrafo a partir do arquivo
         @param str: String no formato especificado pelo trabalho.
     """
     def readFile(self,fileName):
@@ -259,9 +259,6 @@ class Digraph(object):
             SONUMEROS = re.findall(r'\d+', linha)
             node = int (SONUMEROS[0])
             SONUMEROS.pop(0)
-            print(node,end = ' ')
-            print(SONUMEROS)
-            time.sleep(1)
             self.addEdges(node, SONUMEROS)
         File.close()
         return self
