@@ -250,20 +250,10 @@ class Digraph(object):
         importFromText: Importa os arcos e nodos do digrafo a partir de uma string.
         @param str: String no formato especificado pelo trabalho.
     """
-    def importFromText(self, str):
-        for nodeStr in re.findall("([(][0-9 \n]+[)])", str): # Regex: pega as combinações de origem e destinos
-            nodeData = re.findall("[0-9a-zA-Z]+", nodeStr) # Pega todos os números da combinação
-            print(nodeData[1:])
-            time.sleep(2)
-            self.addEdges(nodeData[0], nodeData[1:]) # Adiciona os arcos
-        time.sleep(6000)
-        return self
-
     def readFile(self,fileName):
         File = open(fileName,'r')
         File.readline()
         vertices = int (File.readline())
-
         for x in range(vertices):
             linha = File.readline()
             SONUMEROS = re.findall(r'\d+', linha)
