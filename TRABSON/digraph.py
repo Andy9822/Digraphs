@@ -259,6 +259,9 @@ class Digraph(object):
             SONUMEROS = re.findall(r'\d+', linha)
             node = int (SONUMEROS[0])
             SONUMEROS.pop(0)
+            print(node,end = ' ')
+            print(SONUMEROS)
+            time.sleep(1)
             self.addEdges(node, SONUMEROS)
         File.close()
         return self
