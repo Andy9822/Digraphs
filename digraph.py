@@ -137,8 +137,11 @@ class Digraph(object):
     def reverseDigraph(self):
         reverse = Digraph()
         for origin, edges in self.nodes.items():
-            for dest in edges:
-                reverse.addEdge(dest, origin)
+            if edges == []:
+                reverse.addNode(origin)
+            else:
+                for dest in edges:
+                    reverse.addEdge(dest, origin)
         return reverse
 
     """
@@ -252,5 +255,6 @@ class Digraph(object):
     def importFromText(self, str):
         for nodeStr in re.findall("([(][0-9 \n]+[)])", str): # Regex: pega as combinações de origem e destinos
             nodeData = re.findall("[0-9a-zA-Z]+", nodeStr) # Pega todos os números da combinação
+
             self.addEdges(nodeData[0], nodeData[1:]) # Adiciona os arcos
         return self
