@@ -10,8 +10,7 @@ window = Tk()
 fileName =  filedialog.askopenfilename(initialdir = "/",title = "Select graph file",filetypes = (("Txt files","*.txt"),("all files","*.*")))
 window.destroy()
 
-#try:
-if True:
+try:
     f = open(fileName, "r") # Abre o arquivo
     print("Lendo arquivo '" + fileName + "':")
     text = f.read() # Carrega o buffer do arquivo
@@ -26,5 +25,5 @@ if True:
         print("Ordenamento Topológico: " + str(tpSort).replace("'", "").replace("[", "").replace("]", ""))
     else:
         print("Ordenamento Topológico: grafo é cíclico, portanto, não possui ordenamento topológico!")
-#except Exception:
-#    print("Erro ao abrir arquivo!")
+except Exception:
+    print("Erro ao abrir arquivo!")
