@@ -1,13 +1,10 @@
 from digraph import *
 import re
-from tkinter import *
-import tkinter.filedialog as filedialog
 
 print("Trabalho de Teoria dos Grafos e Análise Combinatória")
 print("Alunos: Lucas Hagen, Andy Ruiz e Leonardo Bombardelli\n")
-window=Tk()
-fileName =  filedialog.askopenfilename(initialdir = "/",title = "Select graph file",filetypes = (("Txt files","*.txt"),("all files","*.*")))
-window.destroy()
+fileName = input("Digite o nome do arquivo a ser lido: ")
+
 try:
     f = open(fileName, "r") # Abre o arquivo
     print("Lendo arquivo '" + fileName + "':")
